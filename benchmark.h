@@ -1,5 +1,6 @@
-#ifndef benchmark_h
-#define benchmark_h
+#ifndef BENCHMARK_H
+#define BENCHMARK_H
+
 void benchmark_sorting();
-void generate_test_files();
+
 #endif
