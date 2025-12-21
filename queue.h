@@ -1,3 +1,5 @@
+#ifndef QUEUE_H
+#define QUEUE_H
 typedef struct Elem {
     int inf;
     struct Elem* link;
@@ -15,3 +17,4 @@ int is_empty(Queue *p);
 void free_queue(Queue *p);
 void print_queue(Queue *p);
 Queue* array_to_queue(int arr[], int size);
+#endif
