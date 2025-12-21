@@ -1,4 +1,7 @@
-#include "queue.h"
+#ifndef FILE_H
+#define FILE_H
+
 void write_array_to_file(int arr[], int size, const char* filename);
-int read_array_from_file(const char* filename, int* size);
-void generate_test_files();
+int* read_array_from_file(const char* filename, int* size);
+
+#endif
