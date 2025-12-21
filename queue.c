@@ -1,59 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "queue.h"
-Queue* create_queue(){
-    Queue* p = (Queue *)malloc(sizeof(Queue));
+
+Queue* create_queue() {
+    Queue* p = (Queue*)malloc(sizeof(Queue));
     p->BegQ = p->EndQ = NULL;
     p->size = 0;
     return p;
 }
-void add_elem_queue(Queue *p, int value){
+
+void add_elem_queue(Queue* p, int value) {
     Elem* new_elem = (Elem*)malloc(sizeof(Elem));
     new_elem->inf = value;
     new_elem->link = NULL;
-    if (p->EndQ == NULL){
+    if (p->EndQ == NULL) {
         p->BegQ = p->EndQ = new_elem;
-    }else{
+    } else {
         p->EndQ->link = new_elem;
         p->EndQ = new_elem;
     }
     p->size++;
 }
-int remove_elem_queue(Queue* p){
-    if (is_empty(p)){
+
+int remove_elem_queue(Queue* p) {
+    if (is_empty(p)) {
         printf("В очереди нет элементов!");
         return -1;
     }
-    Elem* inf = p->BegQ;
-    int value = inf->link;
+    Elem* temp = p->BegQ;
+    int value = temp->inf;
     p->BegQ = p->BegQ->link;
-    if(p->BegQ == NULL){
+    if (p->BegQ == NULL) {
         p->EndQ = NULL;
     }
-    free(inf);
+    free(temp);
     p->size--;
+    return value;
 }
-int is_empty(Queue*p){
+
+int is_empty(Queue* p) {
     return p->BegQ == NULL;
 }
-void free_queue(Queue* p){
-    while(!is_empty(p)){
+
+void free_queue(Queue* p) {
+    while (!is_empty(p)) {
         remove_elem_queue(p);
     }
     free(p);
 }
-void print_queue(Queue* p){
+
+void print_queue(Queue* p) {
     Elem* current = p->BegQ;
-    printf("Queue: ");
-    while(current!=NULL){
+    printf("Очередь [размер=%d]: ", p->size);
+    while (current != NULL) {
         printf("%d", current->inf);
-        current=current->link;
+        current = current->link;
+        if (current != NULL) printf(" → ");
     }
-    print("\n");
+    printf("\n");
 }
-Queue* array_to_queue(int arr[], int size){
-    Queue* p =create_queue();
-    for (int i = 0; i < size; i++){
+
+Queue* array_to_queue(int arr[], int size) {
+    Queue* p = create_queue();
+    for (int i = 0; i < size; i++) {
         add_elem_queue(p, arr[i]);
     }
     return p;
